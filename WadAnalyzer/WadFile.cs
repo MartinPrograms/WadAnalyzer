@@ -59,14 +59,14 @@ public class WadFile
     {
         WadPNames pnames = null;
         HashSet<string> patchNames = new HashSet<string>();
-        
+
         var pnamesLump = Lumps.FirstOrDefault(l => l.Name == "PNAMES");
         if (pnamesLump != null)
         {
             pnames = WadPNames.FromWadLump(pnamesLump);
             patchNames = new HashSet<string>(pnames.PatchNames);
         }
-        
+
         foreach (var lump in Lumps)
         {
             // Check if this lump is a patch (name exists in PNAMES)
@@ -76,7 +76,7 @@ public class WadFile
                 Patches[lump.Name.Trim().ToUpper()] = patch; // Store by uppercase name
             }
         }
-        
+
         foreach (var lump in Lumps)
         {
             if (lump.IsTexture())
@@ -97,10 +97,22 @@ public class WadFile
                             }
                         }
                     }
+
                     Textures[texture.Name.Trim().ToUpper()] = texture;
                 }
             }
         }
+
+        // Add an empty texture by -
+        Textures["-"] = new WadTexture()
+        {
+            Name = "-",
+            Width = 0,
+            Height = 0,
+            Patches = new List<WadTexturePatch>(),
+            ResolvedPatches = new List<WadPatch>(),
+        };
+
     }
 
     private void SortLevels()
@@ -149,5 +161,15 @@ public class WadFile
     public static WadFile FromFile(string path)
     {
         return new WadFile(File.ReadAllBytes(path), Path.GetFileNameWithoutExtension(path));
+    }
+
+    public WadTexture GetFlat(string texture)
+    {
+        if (Textures.TryGetValue(texture.Trim().ToUpper(), out var tex))
+        {
+            return tex;
+        }
+
+        return null;
     }
 }

@@ -7,8 +7,8 @@ public class WadLineDef
     public ushort Flags { get; set; }
     public ushort Action { get; set; }
     public ushort Tag { get; set; }
-    public ushort RightSidedef { get; set; }
-    public ushort LeftSidedef { get; set; }
+    public ushort RightSideDef { get; set; }
+    public ushort LeftSideDef { get; set; }
 
     public static WadLineDef[] FromWadLump(WadLump wadLump)
     {
@@ -25,8 +25,8 @@ public class WadLineDef
                 Flags = BitConverter.ToUInt16(wadLump.Data, offset + 4),
                 Action = BitConverter.ToUInt16(wadLump.Data, offset + 6),
                 Tag = BitConverter.ToUInt16(wadLump.Data, offset + 8),
-                RightSidedef = BitConverter.ToUInt16(wadLump.Data, offset + 10),
-                LeftSidedef = BitConverter.ToUInt16(wadLump.Data, offset + 12)
+                RightSideDef = BitConverter.ToUInt16(wadLump.Data, offset + 10),
+                LeftSideDef = BitConverter.ToUInt16(wadLump.Data, offset + 12)
             };
         }
         

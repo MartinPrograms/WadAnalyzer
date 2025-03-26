@@ -15,7 +15,7 @@ public class WadNode
     public short DeltaX { get; set; }
     public short DeltaY { get; set; }
     
-    public WadNodeBounds RightChidlBounds { get; set; }
+    public WadNodeBounds RightChildBounds { get; set; }
     public WadNodeBounds LeftChildBounds { get; set; }
     
     public ushort RightChild { get; set; }
@@ -32,7 +32,7 @@ public class WadNode
                 PartitionLineY = BitConverter.ToInt16(wadLump.Data, i * 28 + 2),
                 DeltaX = BitConverter.ToInt16(wadLump.Data, i * 28 + 4),
                 DeltaY = BitConverter.ToInt16(wadLump.Data, i * 28 + 6),
-                RightChidlBounds = new WadNodeBounds
+                RightChildBounds = new WadNodeBounds
                 {
                     XMin = BitConverter.ToInt16(wadLump.Data, i * 28 + 8),
                     YMin = BitConverter.ToInt16(wadLump.Data, i * 28 + 10),
